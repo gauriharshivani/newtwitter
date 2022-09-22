@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<section class="content">
+  <section class="main_header">
+    <img src="{% static 'img/butterfly.png' %}" class="logo" />
+    <h1>Edit</h1>
+  </section>
+
+  <div class="posts_form">
+    <img src="{% static 'img/butterflies.png' %}" />
+    <form
+      action="/edit/{{post.id}}/"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <input
+        type="text"
+        name="name"
+        placeholder="Name"
+        value="{{post.name}}"
+        required
+      />
+      <textarea name="body" placeholder="What's happening?" required>
+{{post.body}}</textarea
+      >
+      <img
+        src="{{post.image.url}}"
+        style="
+          width: 65%;
+          padding-bottom: 20px;
+          margin-top: 10px;
+        "
+      /><br /><br />
+      <input type="file" id="myfile" name="image" />
+      <div class="update">
+        <a class="cancel" href="/">
+          <input type="button" id="delete" value="Cancel" />
+        </a>
+        <input type="submit" id="update" value="Update" />
+      </div>
+    </form>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'js/posts.js/' %}"></script>
+  </div>
+</section>
+
+{% endblock %}
